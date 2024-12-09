@@ -1,8 +1,11 @@
-Options +MultiViews
-
 RewriteEngine On
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^([^\.]+)$ $1.php [NC,L]
 
-RewriteCond %{THE_REQUEST} \s/+(.+?)\.php[\s?] [NC]
-RewriteRule ^([^\.]+)$ $1.php [NC,L]
+# Set the base directory for the project
+RewriteBase /php-playground/
+
+# Skip rewriting if the request is for an actual file or directory
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Rewrite everything else to the PHP script
+RewriteRule ^shop(.*)$ index.php?path=$1 [QSA,L]
